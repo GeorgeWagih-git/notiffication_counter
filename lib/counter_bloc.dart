@@ -4,13 +4,14 @@ import 'package:project/counter_states.dart';
 
 class CounterBloc extends Bloc<CounterEvents, CounterStates> {
   CounterBloc() : super(CounterInitState()) {
-    int counter = 1;
+    int counter = 0;
     on<AddCounterEvent>((event, emit) {
       counter++;
       emit(CounterChangedState(newCounter: counter));
     });
     on<MinCounterEvent>((event, emit) {
       if (counter == 0) {
+        emit(CounterSmallerThanZero());
         return;
       }
       counter--;
